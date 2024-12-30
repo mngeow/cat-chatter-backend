@@ -1,0 +1,59 @@
+# Cache folders
+docker
+.ruff_cache
+.venv
+
+
+**/__pycache__/
+.env
+logs/download_files_to_azure_storage.csv
+logs/download_files_to_azure_storage.log
+
+# IDE Fragments
+*__pycache__*
+*.idea*
+.devcontainer/devcontainer.json
+.devcontainer/config/*
+.devcontainer/data/*
+services/catalog/.devcontainer/data/*
+services/catalog/htmlcov/*
+
+# test
+.mypy_cache
+.pytest_cache
+
+# Environment Files
+/.env
+*.env
+# reports for code quality
+.artifacts/
+
+# sonar scanner report
+.scannerwork/
+
+.coverage
+.coverage.*
+
+.history/
+
+
+.DS_Store
+
+*.ipynb
+
+*-result.json
+*.log
+
+*values_*.yaml
+
+*.tgz
+
+test.py
+
+test_crash_server.py
+
+local_test_*.py
+
+**/prompt_config.yaml
+
+prompt_config.yaml

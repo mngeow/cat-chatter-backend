@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "cat-chatter-backend"
+version = "0.1.0"
+description = ""
+authors = ["marcusadi <marcus.ngeow@aboitiz.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.6"
+openai = "^1.58.1"
+uvicorn = "^0.34.0"
+taskipy = "^1.14.1"
+sqlalchemy = "^2.0.36"
+alembic = "^1.14.0"
+pydantic-settings = "^2.7.0"
+psycopg2 = "^2.9.10"
+loguru = "^0.7.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+app = "uvicorn app.main:app --port 9000 --workers 1"
