@@ -1,11 +1,12 @@
 from sqlalchemy.orm import scoped_session
-from app.dao.cat_persona import CatPersonaDAO
+from app.dao.persona import PersonaDAO
 from app.dao.schema import BasePersona, Persona
+from .schema import PersonaList
 import uuid
 
-class CatPersonaService:
+class PersonaService:
     def __init__(self, db_session: scoped_session) -> None:
-        self._persona_dao = CatPersonaDAO(db_session=db_session)
+        self._persona_dao = PersonaDAO(db_session=db_session)
     
     def create_persona(self, persona: BasePersona) -> Persona:
         persona_obj = Persona(
@@ -27,3 +28,8 @@ class CatPersonaService:
         self._persona_dao.update(persona=persona_obj)
 
         return persona_obj
+    
+    def get_all_personas(self) -> PersonaList:
+        return PersonaList(
+            personas=self._persona_dao.fetch_personas()
+        )

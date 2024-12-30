@@ -2,8 +2,9 @@ from sqlalchemy.orm import scoped_session
 from .schema import Persona
 from app.infrastructure.postgres.models import CatPersonas
 from sqlalchemy import select, update
+from typing import List
 
-class CatPersonaDAO:
+class PersonaDAO:
     def __init__(self, db_session: scoped_session) -> None:
         self._db_session = db_session
     
@@ -23,7 +24,7 @@ class CatPersonaDAO:
         self._db_session.execute(stmt)
         self._db_session.commit()
     
-    def fetch_personas(self) -> Persona:
+    def fetch_personas(self) -> List[Persona]:
         stmt = select(CatPersonas)
         result_proxy = self._db_session.execute(stmt)
         res = result_proxy.scalars().all()
