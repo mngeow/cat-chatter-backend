@@ -1,10 +1,16 @@
 repos:
-- repo: https://github.com/astral-sh/ruff-pre-commit
-  # Ruff version.
-  rev: v0.6.9
-  hooks:
-    # Run the linter.
-    - id: ruff
-      args: [ --fix ]
-    # Run the formatter.
-    - id: ruff-format
+  - repo: local
+    hooks:
+      - id: ruff-format
+        name: ruff-format
+        entry: uvx ruff format
+        language: system
+        types_or: [python]
+        pass_filenames: true
+
+      - id: ruff-check
+        name: ruff-check
+        entry: uvx ruff check --force-exclude
+        language: system
+        types_or: [python]
+        pass_filenames: true
