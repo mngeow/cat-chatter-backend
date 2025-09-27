@@ -22,5 +22,53 @@ loguru = "^0.7.3"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.9"
+pre-commit = "^4.0.1"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501", # line too long, handled by black
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+    "W191", # indentation contains tabs
+    "F401", # do not perform removal of unused imports
+    "B904",
+]
+
+[tool.ruff.lint.isort]
+known-third-party = ["fastapi", "pydantic", "starlette"]
+
+[tool.ruff.lint.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true
+
+[tool.coverage.run]
+source = ["app"]
+relative_files = true
+omit = [
+    "app/utils/s3.py",
+    "app/utils/ses.py",
+    "app/utils/excel.py",
+    "app/domain/data_processing/project_metadata_util.py",
+    "app/domain/sharepoint/utils/sharepoint.py",
+    "app/routes/deps/security.py",
+    "app/routes/endpoints/v1/upload.py"
+
+]
+
+[tool.coverage.report]
+fail_under = 70
+
 [tool.taskipy.tasks]
 app = "uvicorn app.main:app --port 9000 --workers 1"
+unit-tests = "export TESTING=true  && pytest -s --verbose --cov=app --cov=unit_tests --cov-report=term-missing --cov-report=xml:.artifacts/coverage.xml --junit-xml=.artifacts/tests.xml"
